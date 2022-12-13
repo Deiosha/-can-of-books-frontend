@@ -1,11 +1,42 @@
-# Start your own "Can of Books" App
+# Project Name: can-of-books-frontend
 
-This repository has starter code to begin work on creating your own online bookshelf.
+**Author**: Deiosha & Ryan
 
-## What can books do?
+**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
-Books are life-changing. They have the power to enlighten, educate, entertain, heal, and help us grow. Build out this code base to create an web app to track what books have impacted you, and what's recommended to read next.
+## Overview
 
-## Use this template
+We created a site that You  populate database with “seed” data of our favorite books. When the front end makes a request to your server, your server will query the database and respond with all of the results from the database. Your front end will display these results.
 
-Clone this repo to your own account with the green "Use this template" button. Then, add any collaborators. Now you are ready to start adding features! Deploy your site to let the world know which books have had the greatest impact on you, and what's recommended. Enjoy!
+## Getting Started
+
+The steps were to create two repos and create files that generated book data
+
+## Architecture
+
+React, JS, CSS, and Mongo
+
+## Change Log
+
+8:30pm we were able to get our react page to work
+
+## Estimates
+<!-- See below -->
+
+## Credit and Collaborations
+
+I'll like to thank my programming partner and the TA's.
+
+## Credit and Collaborations
+
+Ryan Papsin
+
+### Name of feature: can-of-books-frontend
+
+Estimate of time needed to complete: 4 hours
+
+Start time: 3:20pm
+
+Finish time: 8:30pm
+
+Actual time needed to complete: 5 hours
