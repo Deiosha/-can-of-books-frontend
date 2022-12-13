@@ -46,5 +46,18 @@ Actual time needed to complete: 5 hours
 
 1. School Hours 9am - 7pm.
 2. Slack.
-3. When needed. 
+3. When needed.
 4. Work later hours.
+
+## Cooperative
+
+1. Deiosha - Organzation. Ryan - Styling.
+2. We can stay on task and creating a site that is presentable.
+3. Deiosha - React. Ryan - React.
+4. We will talk through the code from start to finish to understand what is happening.
+
+## Conflict Resolution
+
+1. Communicate about the issue to each other and if that doesn't work, talk to instructor. 
+2. Communicate about the issue.
+3. Working together and doing the Driver/Navigate apporach.
