@@ -40,3 +40,11 @@ Start time: 3:20pm
 Finish time: 8:30pm
 
 Actual time needed to complete: 5 hours
+
+
+## Logistical
+
+1. School Hours 9am - 7pm.
+2. Slack.
+3. When needed. 
+4. Work later hours.

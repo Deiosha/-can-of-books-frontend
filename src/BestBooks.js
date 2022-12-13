@@ -38,35 +38,33 @@ class BestBooks extends React.Component {
   }
 
   render(){
-    return (
-      
-      <div id="books">
-        <input onChange={this.handleChange} type="text"/>
-        <button onClick={() => this.fetchBooks(this.state.search)}>Search For Books</button>
-        {this.state.books.length > 0 ?
-        
-        this.state.books.map(book => {
           return (
-            <div>
-            <Carousel>
-            <Carousel.Item>
-            <Carousel.Caption>
-            <h2>{book.title}</h2>
-            <p>{book.description}</p>
-            <p>{book.status}</p>
-            </Carousel.Caption>
-            </Carousel.Item>
-            </Carousel>
-            
-            </div>
-          )
-        }) : <p>No Books Found</p>
-        }
+            <div style={{ height: '500px', width: '100%' }}>
+        <Carousel>
+          {this.state.books.map(book => {
+            return (
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="https://via.placeholder.com/800x400"
+                  alt={book.title}
+                />
+                <Carousel.Caption>
+                  <h3>{book.title}</h3>
+                  <p>{book.description}</p>
+                  <p>{book.status}</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            )
+          })}
+        </Carousel>
       </div>
     )
+        
   }
 
- 
+
 }
+
 
 export default BestBooks;
