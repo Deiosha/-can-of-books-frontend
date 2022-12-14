@@ -35,6 +35,19 @@ class BestBooks extends React.Component {
     });
   }
 
+  deleteBook = async id => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER_URL}/books/${id}`
+      await axios.delete(url)
+      let deletedBooks = this.state.books.filter(book => book._id !== id)
+      this.setState({
+        books: deletedBooks
+      })
+    } catch (err) {
+      console.log('An error has occured ', err)
+    }
+  }
+
  
   
 
@@ -51,6 +64,17 @@ class BestBooks extends React.Component {
     this.setState({showForm: false});
   }
 
+  handelAddModal = async (book) => {
+    console.log(book);
+     const addResult = await axios.post(process.env.REACT_APP_SERVER_URL +"/books", {
+       title: book.title,
+       description: book.description,
+       status: book.status
+     })
+     this.setState({books:[...this.state.books, addResult.data]})
+    }
+
+    handleAddBook = () => {}
 
 
   render(){
@@ -69,6 +93,13 @@ class BestBooks extends React.Component {
                   <h3>{book.title}</h3>
                   <p>{book.description}</p>
                   <p>{book.status}</p>
+                  <Button
+                      variant="danger"
+                      onClick={() => this.deleteBook(book._id)}
+                    >
+                      Delete Book!
+                    </Button>
+
                 </Carousel.Caption>
               </Carousel.Item>
               
@@ -79,7 +110,7 @@ class BestBooks extends React.Component {
         {this.state.showForm && (
 
         <BookFormModal show={this.openForm}
-          hide={this.closeForm}
+          close={this.closeForm} add={this.handelAddModal}
           
         /> 
 
