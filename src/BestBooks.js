@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel';
+import BookFormModal from './BookFormModal';
+import { Button } from 'react-bootstrap';
 
 
 
@@ -9,7 +11,8 @@ class BestBooks extends React.Component {
     super(props);
     this.state = {
       books: [],
-      search: ""
+      search: "",
+      showForm: false
     }
   }
 
@@ -32,10 +35,23 @@ class BestBooks extends React.Component {
     });
   }
 
+ 
+  
+
   handleChange = (e) => {
     console.log('change', e.target.value)
     this.setState({ search: e.target.value });
   }
+
+  openForm = (e) => {
+    this.setState({showForm: true});
+  }
+
+  closeForm = (e) => {
+    this.setState({showForm: false});
+  }
+
+
 
   render(){
           return (
@@ -55,9 +71,21 @@ class BestBooks extends React.Component {
                   <p>{book.status}</p>
                 </Carousel.Caption>
               </Carousel.Item>
+              
             )
           })}
         </Carousel>
+        <Button onClick={() => this.setState({showForm: true})}>Add book</Button>
+        {this.state.showForm && (
+
+        <BookFormModal show={this.openForm}
+          hide={this.closeForm}
+          
+        /> 
+
+        )
+        
+        }
       </div>
     )
         
