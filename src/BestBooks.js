@@ -3,6 +3,7 @@ import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel';
 import BookFormModal from './BookFormModal';
 import { Button } from 'react-bootstrap';
+import UpdateBook from './UpdateBooks';
 
 
 
@@ -48,6 +49,17 @@ class BestBooks extends React.Component {
     }
   }
 
+  updateRequest = async (book) => {
+    console.log(book);
+    let response = await axios.put(process.env.REACT_APP_SERVER_URL + `/books/${book._id}`, {
+      title: book.title,
+      description: book.description,
+      status: book.status
+    });
+    let updatedBook = response.data;
+    console.log(this.state.books, updatedBook);
+    this.fetchBooks();
+  }
  
   
 
@@ -93,12 +105,23 @@ class BestBooks extends React.Component {
                   <h3>{book.title}</h3>
                   <p>{book.description}</p>
                   <p>{book.status}</p>
+                  <button onClick={() => this.setState({ selectedBook: book })}>Update Book</button>
+
                   <Button
                       variant="danger"
                       onClick={() => this.deleteBook(book._id)}
                     >
                       Delete Book!
                     </Button>
+
+                    {this.state.selectedBook
+          ? <UpdateBook
+              closeModal={() => this.setState({ selectedBook: null })}
+              book={this.state.selectedBook}
+              handleUpdate={this.updateRequest}
+            />
+          : null
+        }
 
                 </Carousel.Caption>
               </Carousel.Item>
