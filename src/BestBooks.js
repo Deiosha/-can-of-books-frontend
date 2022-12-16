@@ -9,7 +9,7 @@ import { withAuth0 } from '@auth0/auth0-react';
 
 
 class BestBooks extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -24,10 +24,26 @@ class BestBooks extends React.Component {
   }
 
   fetchBooks = async (bookTitle) => {
-    let request = {
-      method: 'GET',
-      url: 'http://localhost:3002/books'
-    }
+    let request = {}
+    // if (this.props.auth0.isAuthenticated) {
+      let res = await this.props.auth0.getIdTokenClaims().then(res => {
+
+        console.log(res);
+        let token = res._raw;
+        console.log(token);
+
+        request = {
+
+          method: 'GET',
+          url: 'http://localhost:3002/books',
+
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      })
+    // }
+    console.log(request)
     if (bookTitle) {
       request.url += `?name=${bookTitle}`
     }
@@ -62,8 +78,8 @@ class BestBooks extends React.Component {
     console.log(this.state.books, updatedBook);
     this.fetchBooks();
   }
- 
-  
+
+
 
   handleChange = (e) => {
     console.log('change', e.target.value)
@@ -71,50 +87,50 @@ class BestBooks extends React.Component {
   }
 
   openForm = (e) => {
-    this.setState({showForm: true});
+    this.setState({ showForm: true });
   }
 
   closeForm = (e) => {
-    this.setState({showForm: false});
+    this.setState({ showForm: false });
   }
 
   handelAddModal = async (book) => {
     console.log(book);
-     const addResult = await axios.post(process.env.REACT_APP_SERVER_URL +"/books", {
-       title: book.title,
-       description: book.description,
-       status: book.status
-     })
-     this.setState({books:[...this.state.books, addResult.data]})
-    }
+    const addResult = await axios.post(process.env.REACT_APP_SERVER_URL + "/books", {
+      title: book.title,
+      description: book.description,
+      status: book.status
+    })
+    this.setState({ books: [...this.state.books, addResult.data] })
+  }
 
-    handleAddBook = () => {}
+  handleAddBook = () => { }
 
 
-    request = async() => {
-      let res =  await this.props.auth0.getIdTokenClaims();
-      let token = res._raw;
-      console.log(token);
-  
-      let request = {
-        method: 'GET',
-        url: 'http://localhost3001/test',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+  request = async () => {
+    let res = await this.props.auth0.getIdTokenClaims();
+    let token = res._raw;
+    console.log(token);
+
+    let request = {
+      method: 'GET',
+      url: 'http://localhost3001/test',
+      headers: {
+        Authorization: `Bearer ${token}`
       }
-  
-      let response = await axios(request);
-      console.log(response.data);
     }
-  render(){
+
+    let response = await axios(request);
+    console.log(response.data);
+  }
+  render() {
     let auth0 = this.props.auth0;
-  console.log(auth0);
+    console.log(auth0);
 
 
 
-          return (
-            <div style={{ height: '500px', width: '100%' }}>
+    return (
+      <div style={{ height: '500px', width: '100%' }}>
         <Carousel>
           {this.state.books.map(book => {
             return (
@@ -131,45 +147,45 @@ class BestBooks extends React.Component {
                   <button onClick={() => this.setState({ selectedBook: book })}>Update Book</button>
 
                   <Button
-                      variant="danger"
-                      onClick={() => this.deleteBook(book._id)}
-                    >
-                      Delete Book!
-                    </Button>
+                    variant="danger"
+                    onClick={() => this.deleteBook(book._id)}
+                  >
+                    Delete Book!
+                  </Button>
 
-                    {this.state.selectedBook
-          ? <UpdateBook
-              closeModal={() => this.setState({ selectedBook: null })}
-              book={this.state.selectedBook}
-              handleUpdate={this.updateRequest}
-            />
-          : null
-        }
+                  {this.state.selectedBook
+                    ? <UpdateBook
+                      closeModal={() => this.setState({ selectedBook: null })}
+                      book={this.state.selectedBook}
+                      handleUpdate={this.updateRequest}
+                    />
+                    : null
+                  }
 
                 </Carousel.Caption>
               </Carousel.Item>
-              
+
             )
           })}
         </Carousel>
-        <Button onClick={() => this.setState({showForm: true})}>Add book</Button>
+        <Button onClick={() => this.setState({ showForm: true })}>Add book</Button>
         {this.state.showForm && (
 
-        <BookFormModal show={this.openForm}
-          close={this.closeForm} add={this.handelAddModal}
-          
-        /> 
-        
-        
-        
+          <BookFormModal show={this.openForm}
+            close={this.closeForm} add={this.handelAddModal}
+
+          />
+
+
+
 
 
         )
-        
+
         }
       </div>
     )
-        
+
   }
 
 
