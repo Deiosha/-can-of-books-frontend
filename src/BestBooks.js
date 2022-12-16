@@ -26,7 +26,7 @@ class BestBooks extends React.Component {
   fetchBooks = async (bookTitle) => {
     let request = {}
     // if (this.props.auth0.isAuthenticated) {
-      let res = await this.props.auth0.getIdTokenClaims().then(res => {
+      await this.props.auth0.getIdTokenClaims().then(res => {
 
         console.log(res);
         let token = res._raw;
