@@ -4,10 +4,12 @@ import Carousel from 'react-bootstrap/Carousel';
 import BookFormModal from './BookFormModal';
 import { Button } from 'react-bootstrap';
 import UpdateBook from './UpdateBooks';
+import { withAuth0 } from '@auth0/auth0-react';
 
 
 
 class BestBooks extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -89,7 +91,28 @@ class BestBooks extends React.Component {
     handleAddBook = () => {}
 
 
+    request = async() => {
+      let res =  await this.props.auth0.getIdTokenClaims();
+      let token = res._raw;
+      console.log(token);
+  
+      let request = {
+        method: 'GET',
+        url: 'http://localhost3001/test',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+  
+      let response = await axios(request);
+      console.log(response.data);
+    }
   render(){
+    let auth0 = this.props.auth0;
+  console.log(auth0);
+
+
+
           return (
             <div style={{ height: '500px', width: '100%' }}>
         <Carousel>
@@ -136,6 +159,10 @@ class BestBooks extends React.Component {
           close={this.closeForm} add={this.handelAddModal}
           
         /> 
+        
+        
+        
+
 
         )
         
@@ -149,4 +176,4 @@ class BestBooks extends React.Component {
 }
 
 
-export default BestBooks;
+export default withAuth0(BestBooks);
